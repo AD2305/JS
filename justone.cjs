@@ -105,7 +105,7 @@ async function validation_indice(mot1,mot2){
     const data3 = await response3.json();
     const famille= data3.map(entry => entry.word);
 
-    return  homonyme.includes(mot2) || famille.includes(mot2);
+    return  homonyme.includes(mot2) || famille.includes(mot2) || (mot1==mot2);
 }
 
 
@@ -150,10 +150,10 @@ async function reponses(mot_a_deviner,score,tour){
     reponse = reponse.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "")
     fichier( reponse+'\n');
     if (reponse==mot_normalise){
-        console.log("Bravo, vous avez trouvé(e) !!!!!!")
+        console.log("Bravo, vous avez trouvé(e) !!!!!!\n")
         score+=1
     }else{
-        console.log(`Wrong!!!!!!!!!!!\nLe mot à deviner était ${mot_a_deviner}`)
+        console.log(`Wrong!!!!!!!!!!!\nLe mot à deviner était ${mot_a_deviner}\n`)
         if(tour==13 && score!=0){score =score-1}
     }
     return score
@@ -212,14 +212,14 @@ async function main(){
     let n=joueur.length
     let joueur_actif=Math.floor(Math.random() * n) + 1
 
-    console.log(`Le premier joueur actif est le joueur ${joueur[joueur_actif]}`)
+    console.log(`Le premier joueur actif est le joueur ${joueur[joueur_actif]}\n`)
 
     for (i=0;i<3;i++){
         do{
             mot_a_deviner=carte[Math.floor(Math.random() *carte.length) + 1]
         }while (mot_a_deviner in mot_deja_devine)
         mot_deja_devine.push(mot_a_deviner)
-        console.log(`Le mot à deviner est : ${mot_a_deviner}`)
+        console.log(`Manche ${i+1}\nLe mot à deviner est : ${mot_a_deviner}\n`)
 
         let ind=await indice(joueur,joueur_actif)
         affichage_indice(ind, mot_a_deviner)
