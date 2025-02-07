@@ -127,7 +127,7 @@ function affichage_indice(indice,mot_a_deviner){
             indice_affiche.push(indice[i])
         }
     }
-    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     if (indice_affiche.length==0){
         console.log("Pas d'indice")
     } else {
