@@ -1,0 +1,20 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node justone.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AD2305/JS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AD2305/JS/issues"
+  },
+  "homepage": "https://github.com/AD2305/JS#readme"
+}
