@@ -116,9 +116,9 @@ function affichage_indice(indice,mot_a_deviner){
     let indice_affiche=[]
     for (let i=0; i<indice.length; i++){
         let in_indice=1
-        if (!validation_indice(i,mot_a_deviner)){
-            for (let j of indice){
-                if (validation_indice(i,j) && i!=j){
+        if (!validation_indice(indice[i],mot_a_deviner)){
+            for (let j=0; j<indice.length; j++){
+                if (validation_indice(indice[i],indice[j]) && indice[i]!=indice[j]){
                     in_indice=0
                 }
             }
@@ -127,7 +127,9 @@ function affichage_indice(indice,mot_a_deviner){
             indice_affiche.push(indice[i])
         }
     }
-    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+    for(let i=0; i<40; i++){console.log("\n")}
+    
     if (indice_affiche.length==0){
         console.log("Pas d'indice")
     } else {
