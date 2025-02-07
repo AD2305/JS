@@ -1,17 +1,4 @@
 /*
-1- Créer le set de carte  -> json
-OOOOOOOOOOOOOOOOOOOOOOO         2- Créer les joueurs: - tous sur le meme clavier-> changement de couleur à chaque joueur (prompt pour fair rentrer le nom des joueurs)+ boucle while pour le nombre de joueur variable
-OOOOOOOOOOOOOOOOOOOOOOO                               - different ordi -> serveur TCP
-OOOOOOOOOOOOOOOOOOOOOOO         3- Piochage des cartes -> random(13) || boucle for (13)
-OOOOOOOOOOOOOOOOOOOOOOO         4- Choix du 1er joueur -> random nb joueur   
-OOOOOOOOOOOOOOOOOOOOOOO         5- random 1 5 (possibillité refaire)
-OOOOOOOOOOOOOOOOOOOOOOO         6- Indice : chacun son tour (validation de l'indice) + warning
-OOOOOOOOOOOOOOOOOOOOOOO         7- Affichage des indices minus identiques/meme famille/variante   -> cas tous les indices sont les mêmes
-8- Réponse -> Réussite, Echec, Passe   + comptage des points
-9- Passage de manche
-
-
-
 question spécific -> mdn
 module js -> npm
 */
@@ -140,7 +127,7 @@ function affichage_indice(indice,mot_a_deviner){
             indice_affiche.push(indice[i])
         }
     }
-    //console.log("\n\n\n\n\n\n\n")
+    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     if (indice_affiche.length==0){
         console.log("Pas d'indice")
     } else {
@@ -164,7 +151,7 @@ async function reponses(mot_a_deviner,score,tour){
         console.log("Bravo, vous avez trouvé(e) !!!!!!")
         score+=1
     }else{
-        console.log("Wrong!!!!!!!!!!!")
+        console.log(`Wrong!!!!!!!!!!!\nLe mot à deviner était ${mot_a_deviner}`)
         if(tour==13 && score!=0){score =score-1}
     }
     return score
@@ -175,24 +162,24 @@ async function reponses(mot_a_deviner,score,tour){
 
 function fin_jeu(score){
     if (score==13){
-        console.log("Score parfait ! Y arriverez-vous encore ?")
+        console.log(`Score : ${score} \nScore parfait ! Y arriverez-vous encore ?`)
     }
     if (score==12){
-        console.log("Incroyable ! Vos amis doivent être impressionnés !")
+        console.log(`Score : ${score} \nIncroyable ! Vos amis doivent être impressionnés !`)
     }
     if (score==11){
-        console.log("Génial ! C'est un score qui se fête !")
+        console.log(`Score : ${score} \nGénial ! C'est un score qui se fête !`)
     }
     if (score==10 || score==9){
-        console.log("Waouh, pas mal du tout !")
+        console.log(`Score : ${score} \nWaouh, pas mal du tout !`)
     }
     if (score==8 || score==7){
-        console.log("Vous êtes dans la moyenne.Arriverez-vous à faire mieux ?")
+        console.log(`Score : ${score} \nVous êtes dans la moyenne.Arriverez-vous à faire mieux ?`)
     }
     if (score > 3 && score <= 6){
-        console.log("C'est un bon début. Réessayez !")
+        console.log(`Score : ${score} \nC'est un bon début. Réessayez !`)
     }else{
-        console.log("Essayez encore.")
+        console.log(`Score : ${score} \nEssayez encore.`)
     }
 }
 
@@ -213,17 +200,23 @@ function fin_jeu(score){
 
 
 async function main(){
+    fs.writeFile('reponse.txt', '');
     let carte= await choix_carte('mots.txt')
     let joueur=await create_joueur()
     let score=0
+    let mot_a_deviner=""
+    let mot_deja_devine=[]
 
     let n=joueur.length
     let joueur_actif=Math.floor(Math.random() * n) + 1
 
     console.log(`Le premier joueur actif est le joueur ${joueur[joueur_actif]}`)
 
-    for (i=0;i<13;i++){
-        let mot_a_deviner=carte[Math.floor(Math.random() * (await carte).length) + 1]
+    for (i=0;i<3;i++){
+        do{
+            mot_a_deviner=carte[Math.floor(Math.random() *carte.length) + 1]
+        }while (mot_a_deviner in mot_deja_devine)
+        mot_deja_devine.push(mot_a_deviner)
         console.log(`Le mot à deviner est : ${mot_a_deviner}`)
 
         let ind=await indice(joueur,joueur_actif)
